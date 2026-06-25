@@ -21,11 +21,6 @@ cd $OLDPWD
 echo "✅ Verifying AWS CLI installation..."
 aws --version
 
-# Install AWS CLI autocomplete for bash
-echo "🔧 Setting up AWS CLI autocomplete..."
-complete -C '$(which aws_completer)' aws
-export AWS_CLI_AUTO_PROMPT=on-partial
-
 echo ""
 echo "================================"
 echo "✨ Setup Complete!"
