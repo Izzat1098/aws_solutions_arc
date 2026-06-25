@@ -7,14 +7,14 @@ echo "================================"
 
 # Update package manager
 echo "📦 Updating package manager..."
-sudo apt-get update -qq
+sudo apt-get update
 # apt-get install -y -qq unzip curl wget git build-essential
 
 echo "AWS CLI installation..."
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
-sudo ./aws/install -qq
-rm -rf awscliv2.zip aws
+sudo ./aws/install
+# rm -rf awscliv2.zip aws
 
 echo "✅ Verifying AWS CLI installation..."
 aws --version
