@@ -4,7 +4,7 @@
     // "features": {
     //     "ghcr.io/devcontainers/features/aws-cli:1": {}
     // },
-    "postStartCommand": "bash .devcontainer/setup.sh",
+    "postCreateCommand": "bash .devcontainer/setup.sh",
     "customizations": {
         "vscode": {
             "extensions": [
