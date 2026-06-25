@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+cd /workspaces
 
 echo "================================"
 echo "Codespace Setup Script"
@@ -15,6 +16,7 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip awscliv2.zip
 sudo ./aws/install
 # rm -rf awscliv2.zip aws
+cd $OLDPWD
 
 echo "✅ Verifying AWS CLI installation..."
 aws --version
