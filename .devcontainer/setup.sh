@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 echo "================================"
 echo "Codespace Setup Script"
@@ -7,7 +7,7 @@ echo "================================"
 
 # Update package manager
 echo "📦 Updating package manager..."
-apt-get update -qq
+sudo apt-get update -qq
 # apt-get install -y -qq unzip curl wget git build-essential
 
 echo "AWS CLI installation..."
