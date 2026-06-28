@@ -3,7 +3,7 @@ set -euo pipefail
 cd /workspaces
 
 echo "================================"
-echo "Codespace Setup Script"
+echo "AWS CLI Setup Script"
 echo "================================"
 
 # Update package manager
