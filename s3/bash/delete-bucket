@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "== create bucket"
+echo "== delete bucket"
 
 if [ -z "$1" ]; then
   echo "Please provide a bucket name as an argument."
@@ -8,5 +8,5 @@ fi
 
 BUCKET_NAME=$1
 
-echo "Creating bucket with name" $BUCKET_NAME
-aws s3 mb "s3://$BUCKET_NAME"
+echo "Deleting bucket with name" $BUCKET_NAME
+aws s3 rb "s3://$BUCKET_NAME"
