@@ -18,7 +18,7 @@ cd $OLDPWD
 echo "✅ Verifying Python installation..."
 python --version
 pip --version
-
+pip install boto3
 echo ""
 echo "================================"
 echo "✨ Setup Complete!"
