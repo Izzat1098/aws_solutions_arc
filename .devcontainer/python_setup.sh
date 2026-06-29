@@ -12,13 +12,15 @@ sudo apt-get update
 # apt-get install -y -qq unzip curl wget git build-essential
 
 echo "Python installation..."
-sudo apt-get install -y python-is-python3 python3-pip
+sudo apt-get install -y python-is-python
+# use UV for dependency and venv management
+curl -LsSf https://astral.sh/uv/install.sh | sh
 cd $OLDPWD
 
 echo "✅ Verifying Python installation..."
 python --version
-pip --version
-pip install boto3
+# pip --version
+
 echo ""
 echo "================================"
 echo "✨ Setup Complete!"
