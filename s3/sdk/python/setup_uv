@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 # just to setup python virtual environment using uv
+# 
+# run using 'source setup_uv.sh' to activate venv in current shell
+# running using 'bash setup_uv.sh' will run it in subshell
+# 
 # uv init
 uv venv
+uv sync
 source .venv/bin/activate
