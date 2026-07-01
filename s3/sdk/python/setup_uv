@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# just to setup python virtual environment using uv
+# uv init
+uv venv
+source .venv/bin/activate

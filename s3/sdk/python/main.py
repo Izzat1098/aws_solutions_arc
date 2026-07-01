@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 
 import boto3
@@ -6,13 +7,16 @@ from botocore.exceptions import ClientError
 
 
 def create_bucket(s3_client, bucket_name: str, region: str | None = None) -> None:
-	if region and region != "us-east-1":
-		s3_client.create_bucket(
-			Bucket=bucket_name,
-			CreateBucketConfiguration={"LocationConstraint": region},
-		)
+	if not region:
+		region = os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
+		print(f"Creating bucket in default region {region}")
 	else:
-		s3_client.create_bucket(Bucket=bucket_name)
+		print(f"Creating bucket in user-specified region: {region}")
+
+	s3_client.create_bucket(
+		Bucket=bucket_name,
+		CreateBucketConfiguration={"LocationConstraint": region},
+	)
 
 
 def delete_bucket(s3_client, bucket_name: str) -> None:
@@ -27,17 +31,17 @@ def parse_args() -> argparse.Namespace:
 	parser.add_argument(
 		"--region",
 		default=None,
-		help="AWS region for bucket creation (optional)",
+		help="AWS region for bucket creation (optional), if not given the default region in aws creds is used.",
 	)
 
 	action_group = parser.add_mutually_exclusive_group(required=True)
 	action_group.add_argument(
-		"--create",
+		"-c", "--create",
 		action="store_true",
 		help="Create the bucket",
 	)
 	action_group.add_argument(
-		"--delete",
+		"-d", "--delete",
 		action="store_true",
 		help="Delete the bucket",
 	)
@@ -51,9 +55,11 @@ def main() -> int:
 
 	try:
 		if args.create:
+			print("Creating bucket...")
 			create_bucket(s3_client, args.bucket_name, args.region)
 			print(f"Bucket created: {args.bucket_name}")
 		elif args.delete:
+			print("Deleting bucket...")
 			delete_bucket(s3_client, args.bucket_name)
 			print(f"Bucket deleted: {args.bucket_name}")
 	except ClientError as exc:
