@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo "== deploy cloudformation stack for S3 bucket creation"
+
+STACK_NAME="s3-bucket-stack"
+
+aws cloudformation deploy \
+--template-file template.yaml \
+--stack-name $STACK_NAME \
+
+# region should be as defined in env variable AWS_DEFAULT_REGION
