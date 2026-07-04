@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /workspaces
+
+echo "================================"
+echo "Node Setup Script"
+echo "================================"
+
+# Update package manager
+echo "📦 Updating package manager..."
+sudo apt-get update
+# apt-get install -y -qq unzip curl wget git build-essential
+
+echo "Nodejs installation..."
+sudo apt-get install -y nodejs npm
+cd $OLDPWD
