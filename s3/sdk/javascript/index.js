@@ -3,31 +3,17 @@ import { parseArgs } from "node:util";
 import { pathToFileURL } from "node:url";
 
 
-function createBucketCommandInput(bucketName, region) {
-	const resolvedRegion = region ?? process.env.AWS_DEFAULT_REGION ?? "us-east-1";
-
-	if (!region) {
-		console.log(`Creating bucket in default region ${resolvedRegion}`);
-	} else {
-		console.log(`Creating bucket in user-specified region: ${resolvedRegion}`);
-	}
-
-	const input = { Bucket: bucketName };
-
-	// S3 requires omitting LocationConstraint for us-east-1.
-	if (resolvedRegion !== "us-east-1") {
-		input.CreateBucketConfiguration = { LocationConstraint: resolvedRegion };
-	}
-
-	return input;
-}
-
 async function createBucket(s3Client, bucketName, region) {
-	const input = createBucketCommandInput(bucketName, region);
+	console.log(`Creating bucket ${bucketName} in region ${region}...`);
+	const input = { Bucket: bucketName };
+	if (region !== "us-east-1") {
+		input.CreateBucketConfiguration = { LocationConstraint: region };
+	}
 	await s3Client.send(new CreateBucketCommand(input));
 }
 
 async function deleteBucket(s3Client, bucketName) {
+	console.log(`Deleting bucket ${bucketName}...`);
 	await s3Client.send(new DeleteBucketCommand({ Bucket: bucketName }));
 }
 
@@ -75,15 +61,14 @@ export async function main(argv = process.argv) {
 		return 1;
 	}
 
-	const s3Client = new S3Client({ region: parsed.region ?? undefined });
+	const resolvedRegion = parsed.region ?? process.env.AWS_DEFAULT_REGION ?? "us-east-1";
+	const s3Client = new S3Client({ region: resolvedRegion });
 
 	try {
 		if (parsed.action === "create") {
-			console.log("Creating bucket...");
-			await createBucket(s3Client, parsed.bucketName, parsed.region);
+			await createBucket(s3Client, parsed.bucketName, resolvedRegion);
 			console.log(`Bucket created: ${parsed.bucketName}`);
 		} else {
-			console.log("Deleting bucket...");
 			await deleteBucket(s3Client, parsed.bucketName);
 			console.log(`Bucket deleted: ${parsed.bucketName}`);
 		}
