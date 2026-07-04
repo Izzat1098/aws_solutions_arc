@@ -1,0 +1,4 @@
+#!usr/bin/env bash
+
+# npm init also can but ci is deterministic based on lockfil
+npm ci

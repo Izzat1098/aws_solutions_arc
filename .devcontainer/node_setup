@@ -9,8 +9,19 @@ echo "================================"
 # Update package manager
 echo "📦 Updating package manager..."
 sudo apt-get update
-# apt-get install -y -qq unzip curl wget git build-essential
 
 echo "Nodejs installation..."
-sudo apt-get install -y nodejs npm
+# install nvm (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install --lts
+
+# apt-get install -y -qq unzip curl wget git build-essential
+
+# this works but may get the lower versions of nodejs that are not compatible with the latest AWS SDK for JavaScript
+# sudo apt-get install -y nodejs npm
 cd $OLDPWD
