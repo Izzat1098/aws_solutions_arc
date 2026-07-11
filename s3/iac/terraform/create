@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# terraform init   >> do once
+terraform validate #  validate the configuration files
+terraform plan # plan only
+terraform apply -auto-approve
+terraform state list
